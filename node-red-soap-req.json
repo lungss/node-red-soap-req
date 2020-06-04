@@ -1,0 +1,182 @@
+[
+    {
+        "id": "213379e.2ac5d86",
+        "type": "tab",
+        "label": "soap-req",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "966bc7e5.c2c138",
+        "type": "inject",
+        "z": "213379e.2ac5d86",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "5818747d.463cec"
+            ]
+        ]
+    },
+    {
+        "id": "5818747d.463cec",
+        "type": "function",
+        "z": "213379e.2ac5d86",
+        "name": "SOAP Params",
+        "func": "return { \n    \"payload\":{\n        \"intA\":\"1\",\n        \"intB\":\"2\"\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 220,
+        "wires": [
+            [
+                "dc64b88.5d78148",
+                "7fdedd51.e5ff84"
+            ]
+        ]
+    },
+    {
+        "id": "57a66c05.994bb4",
+        "type": "xml",
+        "z": "213379e.2ac5d86",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 530,
+        "y": 140,
+        "wires": [
+            [
+                "9a6bd9b6.b34f38"
+            ]
+        ]
+    },
+    {
+        "id": "16eb4899.ff9927",
+        "type": "function",
+        "z": "213379e.2ac5d86",
+        "name": "Result",
+        "func": "return { \"payload\": msg.payload };",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "57a66c05.994bb4"
+            ]
+        ]
+    },
+    {
+        "id": "9a6bd9b6.b34f38",
+        "type": "debug",
+        "z": "213379e.2ac5d86",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 610,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "dc64b88.5d78148",
+        "type": "soap request",
+        "z": "213379e.2ac5d86",
+        "name": "SOAP Call",
+        "topic": "",
+        "wsdl": "57abab5f.7f7054",
+        "method": "Add",
+        "x": 347,
+        "y": 140,
+        "wires": [
+            [
+                "16eb4899.ff9927",
+                "4c940571.9fdb9c"
+            ]
+        ]
+    },
+    {
+        "id": "7fdedd51.e5ff84",
+        "type": "debug",
+        "z": "213379e.2ac5d86",
+        "name": "soap-req",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 340,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4c940571.9fdb9c",
+        "type": "debug",
+        "z": "213379e.2ac5d86",
+        "name": "soap-rpl",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 460,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ea31abd2.840338",
+        "type": "comment",
+        "z": "213379e.2ac5d86",
+        "name": "Original result in JSON; This node to parse to XML if required",
+        "info": "",
+        "x": 820,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e764aecf.cc592",
+        "type": "comment",
+        "z": "213379e.2ac5d86",
+        "name": "Add palette node-red-contrib-soap",
+        "info": "https://flows.nodered.org/node/node-red-contrib-soap",
+        "x": 240,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "7541353a.f8b61c",
+        "type": "comment",
+        "z": "213379e.2ac5d86",
+        "name": "Sample ws: http://www.dneonline.com/calculator.asmx",
+        "info": "http://www.dneonline.com/calculator.asmx\n\nwsdl:\nhttp://www.dneonline.com/calculator.asmx?wsdl\n\nrequest:\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org/\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <tem:Add>\n         <tem:intA>1</tem:intA>\n         <tem:intB>2</tem:intB>\n      </tem:Add>\n   </soapenv:Body>\n</soapenv:Envelope>\n\nreply:\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n   <soap:Body>\n      <AddResponse xmlns=\"http://tempuri.org/\">\n         <AddResult>3</AddResult>\n      </AddResponse>\n   </soap:Body>\n</soap:Envelope>",
+        "x": 300,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "57abab5f.7f7054",
+        "type": "soap-config",
+        "z": "",
+        "wsdl": "http://www.dneonline.com/calculator.asmx?wsdl",
+        "auth": "0",
+        "user": "",
+        "pass": "",
+        "key": "",
+        "cert": "",
+        "token": ""
+    }
+]
